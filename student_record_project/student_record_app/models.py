@@ -1,12 +1,12 @@
 from django.db import models
 
 # Create your models here.
-class student(models.Model):
+class Student(models.Model):
     surname = models.CharField(max_length=30)
     middle_name = models.CharField(max_length=30)
     age = models.IntegerField()
-    Email = models.EmailField(unique=True)
-    State_of_origin = models.CharField(max_length=15)
+    email = models.EmailField(unique=True)
+    state_of_origin = models.CharField(max_length=15)
     department = models.CharField(max_length=15)
 
     def __str__(self):

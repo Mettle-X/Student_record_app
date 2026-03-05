@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student_record_project</title>
+  </head>
+  <body>
+    {% extends 'student_record_app/base.html' %} {% block content %}
+
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }}
+      <button type="submit" class="btn btn-success">Save</button>
+      <a href="{% url 'student_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+
+    {% endblock %}
+  </body>
+</html>
