@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_list_or_404, redirect
-from django.http import HttpResponse
-from django.template import loader
-from .models import Student
-from .forms import studentForm
+# from django.shortcuts import render, get_list_or_404, redirect
+# from django.http import HttpResponse
+# from django.template import loader
+# from .models import Student
+# from .forms import studentForm
 # from .forms import studentForm
 
 # Create your views here.
@@ -13,12 +13,20 @@ from .forms import studentForm
 #   template = loader.get_template('students.html')
 #   return HttpResponse(template.render())
 
+from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponse
+from .models import Student
+from .forms import studentForm
+
+
 def home(request):
     return HttpResponse('Welcome to student records')
+
 
 def student_list(request):
     students = Student.objects.all()
     return render(request, 'student_record_app/student_list.html', {'students': students})
+
 
 # CREATE
 def student_create(request):
@@ -28,19 +36,25 @@ def student_create(request):
         return redirect('student_list')
     return render(request, 'student_record_app/student_form.html', {'form': form})
 
+
 # UPDATE
 def student_update(request, pk):
-    student = get_list_or_404(student, pk=pk)
+    student = get_object_or_404(Student, pk=pk)
     form = studentForm(request.POST or None, instance=student)
+    
     if form.is_valid():
         form.save()
         return redirect('student_list')
+
     return render(request, 'student_record_app/student_form.html', {'form': form})
+
 
 # DELETE
 def student_delete(request, pk):
-    student = get_list_or_404(student, pk=pk)
+    student = get_object_or_404(Student, pk=pk)
+
     if request.method == "POST":
         student.delete()
         return redirect('student_list')
-    return render(request, 'student/student_confirm_delete.html', {'students': student})
+
+    return render(request, 'student_record_app/student_confirm_delete.html', {'student': student})
