@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: student-record-app
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn student_record_project.wsgi:application"

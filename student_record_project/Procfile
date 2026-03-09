@@ -1,0 +1,1 @@
+web: gunicorn student_record_project.wsgi
